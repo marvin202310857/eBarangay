@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Danlog - Digital Governance System</title>
+    <link rel="stylesheet" href="ebarangay-system.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <img src="danlogLogo.jpg" alt="Barangay Daniog Logo" class="sidebar-logo">
+            <div class="logo-text">
+                <h2>BARANGAY DANLOG</h2>
+                <p>San Jose, Camarines Sur</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" data-section="residents">
+                <i class="fas fa-users"></i>
+                <span>Residents</span>
+            </a>
+            <a href="#" class="nav-item" data-section="clearances">
+                <i class="fas fa-certificate"></i>
+                <span>Clearances</span>
+            </a>
+            <a href="#" class="nav-item" data-section="permits">
+                <i class="fas fa-file-alt"></i>
+                <span>Business Permits</span>
+            </a>
+            <a href="#" class="nav-item" data-section="blotter">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Blotter Records</span>
+            </a>
+            <a href="#" class="nav-item" data-section="complaints">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Complaints</span>
+            </a>
+            <a href="#" class="nav-item" data-section="special-permits">
+                <i class="fas fa-calendar-check"></i>
+                <span>Special Permits</span>
+            </a>
+            <a href="#" class="nav-item" data-section="pets">
+                <i class="fas fa-paw"></i>
+                <span>Pet Registration</span>
+            </a>
+            <a href="#" class="nav-item" data-section="officials">
+                <i class="fas fa-user-tie"></i>
+                <span>Officials</span>
+            </a>
+            <a href="#" class="nav-item" data-section="households">
+                <i class="fas fa-home"></i>
+                <span>Households</span>
+            </a>
+            <a href="#" class="nav-item" data-section="tanod">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Tanod Tracking</span>
+            </a>
+            <a href="#" class="nav-item" data-section="surveillance">
+                <i class="fas fa-video"></i>
+                <span>Surveillance</span>
+            </a>
+            <a href="#" class="nav-item" data-section="announcements">
+                <i class="fas fa-bullhorn"></i>
+                <span>Announcements</span>
+            </a>
+            <a href="#" class="nav-item" data-section="reports">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
+            <a href="#" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search anything..." id="globalSearch">
+                </div>
+                <div class="notifications" onclick="toggleNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">5</span>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <h4>Notifications</h4>
+                            <a href="#" class="mark-read">Mark all as read</a>
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item unread">
+                                <i class="fas fa-certificate"></i>
+                                <div>
+                                    <p>New clearance request from Juan Dela Cruz</p>
+                                    <span>5 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fas fa-user-plus"></i>
+                                <div>
+                                    <p>New resident registered: Maria Santos</p>
+                                    <span>1 hour ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fas fa-clipboard-list"></i>
+                                <div>
+                                    <p>Blotter report filed - Noise complaint</p>
+                                    <span>3 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="view-all">View All Notifications</a>
+                    </div>
+                </div>
+                <div class="user-profile" onclick="toggleProfileMenu()">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Admin User</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section class="content-section active" id="dashboard-section">
+            <div class="section-container">
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Residents</h3>
+                            <p class="stat-number" data-target="2456">0</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> +12% from last month
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card green">
+                        <div class="stat-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Clearances Issued</h3>
+                            <p class="stat-number" data-target="145">0</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> +8% from last month
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card orange">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Pending Requests</h3>
+                            <p class="stat-number" data-target="23">0</p>
+                            <span class="stat-change warning">
+                                <i class="fas fa-exclamation-circle"></i> Requires attention
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card red">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Active Blotters</h3>
+                            <p class="stat-number" data-target="8">0</p>
+                            <span class="stat-change neutral">
+                                <i class="fas fa-minus"></i> In progress
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts and Activity -->
+                <div class="content-grid">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h3>Monthly Activity Overview</h3>
+                            <select class="chart-filter">
+                                <option>Last 6 months</option>
+                                <option>Last year</option>
+                                <option>All time</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="activityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card activity-card">
+                        <div class="card-header">
+                            <h3>Recent Activities</h3>
+                            <a href="#" class="view-all-link">View All</a>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon blue">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <p class="activity-title">Barangay Clearance Issued</p>
+                                    <p class="activity-desc">Juan Dela Cruz - BC-2025-145</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon green">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <p class="activity-title">New Resident Registered</p>
+                                    <p class="activity-desc">Maria Santos - RES-2025-789</p>
+                                    <span class="activity-time">5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon orange">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <p class="activity-title">Blotter Report Filed</p>
+                                    <p class="activity-desc">Noise complaint - BLT-2025-045</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon purple">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <p class="activity-title">Business Permit Renewed</p>
+                                    <p class="activity-desc">Sari-Sari Store - BP-2025-023</p>
+                                    <span class="activity-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card quick-actions-card">
+                    <div class="card-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn" onclick="openModal('addResident')">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Add Resident</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="openModal('issueClearance')">
+                            <i class="fas fa-certificate"></i>
+                            <span>Issue Clearance</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="openModal('newBlotter')">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>New Blotter</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="openModal('newAnnouncement')">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Announcement</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="openModal('businessPermit')">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Business Permit</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="openModal('specialPermit')">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Special Permit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Residents Section -->
+        <section class="content-section" id="residents-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div>
+                        <h2>Resident Management</h2>
+                        <p class="section-subtitle">Manage all barangay residents and their information</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('addResident')">
+                        <i class="fas fa-plus"></i> Add New Resident
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="filter-bar">
+                            <div class="search-filter">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search residents..." id="residentSearch">
+                            </div>
+                            <div class="filters">
+                                <select class="filter-select">
+                                    <option>All Status</option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                </select>
+                                <select class="filter-select">
+                                    <option>All Purok</option>
+                                    <option>Purok 1</option>
+                                    <option>Purok 2</option>
+                                    <option>Purok 3</option>
+                                </select>
+                                <button class="btn btn-icon" onclick="exportData('residents')">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Resident ID</th>
+                                    <th>Full Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Address</th>
+                                    <th>Contact</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="residentsTableBody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <div class="showing-entries">
+                            Showing 1 to 10 of 2,456 entries
+                        </div>
+                        <div class="pagination">
+                            <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">...</button>
+                            <button class="page-btn">246</button>
+                            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clearances Section -->
+        <section class="content-section" id="clearances-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div>
+                        <h2>Barangay Clearances</h2>
+                        <p class="section-subtitle">Issue and manage barangay certificates and clearances</p>
+                    </div>
+                </div>
+
+                <div class="clearance-types-grid">
+                    <div class="clearance-type-card">
+                        <div class="clearance-icon blue">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Barangay Clearance</h3>
+                        <p>General purpose clearance for employment, business, and other transactions</p>
+                        <button class="btn btn-primary btn-block" onclick="openModal('issueClearance', 'clearance')">
+                            Issue Clearance
+                        </button>
+                    </div>
+                    <div class="clearance-type-card">
+                        <div class="clearance-icon green">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Certificate of Residency</h3>
+                        <p>Proof of residence in the barangay for official documentation</p>
+                        <button class="btn btn-primary btn-block" onclick="openModal('issueClearance', 'residency')">
+                            Issue Certificate
+                        </button>
+                    </div>
+                    <div class="clearance-type-card">
+                        <div class="clearance-icon orange">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3>Certificate of Indigency</h3>
+                        <p>For financial assistance and support programs</p>
+                        <button class="btn btn-primary btn-block" onclick="openModal('issueClearance', 'indigency')">
+                            Issue Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Clearances</h3>
+                        <div class="filters">
+                            <select class="filter-select">
+                                <option>All Types</option>
+                                <option>Barangay Clearance</option>
+                                <option>Certificate of Residency</option>
+                                <option>Certificate of Indigency</option>
+                            </select>
+                            <input type="date" class="filter-select">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Certificate No.</th>
+                                    <th>Resident Name</th>
+                                    <th>Type</th>
+                                    <th>Purpose</th>
+                                    <th>Date Issued</th>
+                                    <th>Issued By</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clearancesTableBody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other sections will be similar structure -->
+        <section class="content-section" id="permits-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div>
+                        <h2>Business Permits</h2>
+                        <p class="section-subtitle">Manage business permit applications and renewals</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('businessPermit')">
+                        <i class="fas fa-plus"></i> New Permit Application
+                    </button>
+                </div>
+                <!-- Content similar to clearances -->
+            </div>
+        </section>
+
+        <!-- Add similar sections for all modules -->
+    </main>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Add Resident Modal -->
+    <div class="modal" id="addResidentModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Add New Resident</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addResidentForm" class="form-grid">
+                    <div class="form-section">
+                        <h4>Personal Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name <span class="required">*</span></label>
+                                <input type="text" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input type="text" name="middleName">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name <span class="required">*</span></label>
+                                <input type="text" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date of Birth <span class="required">*</span></label>
+                                <input type="date" name="birthDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender <span class="required">*</span></label>
+                                <select name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Civil Status <span class="required">*</span></label>
+                                <select name="civilStatus" required>
+                                    <option value="">Select Status</option>
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="widowed">Widowed</option>
+                                    <option value="separated">Separated</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Contact Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Contact Number <span class="required">*</span></label>
+                                <input type="tel" name="contactNumber" placeholder="09XX-XXX-XXXX" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" name="email" placeholder="email@example.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Complete Address <span class="required">*</span></label>
+                            <input type="text" name="address" placeholder="House No., Street, Purok" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Purok <span class="required">*</span></label>
+                                <select name="purok" required>
+                                    <option value="">Select Purok</option>
+                                    <option value="1">Purok 1</option>
+                                    <option value="2">Purok 2</option>
+                                    <option value="3">Purok 3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Voter Status</label>
+                                <select name="voterStatus">
+                                    <option value="">Select Status</option>
+                                    <option value="registered">Registered Voter</option>
+                                    <option value="not-registered">Not Registered</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Additional Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Occupation</label>
+                                <input type="text" name="occupation">
+                            </div>
+                            <div class="form-group">
+                                <label>PWD Status</label>
+                                <select name="pwdStatus">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Senior Citizen</label>
+                                <select name="seniorCitizen">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitResident()">
+                    <i class="fas fa-save"></i> Save Resident
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Issue Clearance Modal -->
+    <div class="modal" id="issueClearanceModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Issue Barangay Clearance</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="issueClearanceForm" class="form-grid">
+                    <div class="form-group">
+                        <label>Select Resident <span class="required">*</span></label>
+                        <input type="text" list="residentsList" placeholder="Search resident name..." required>
+                        <datalist id="residentsList">
+                            <option value="Juan Dela Cruz">
+                            <option value="Maria Santos">
+                            <option value="Pedro Reyes">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>Certificate Type <span class="required">*</span></label>
+                        <select name="certificateType" required>
+                            <option value="">Select Type</option>
+                            <option value="clearance">Barangay Clearance</option>
+                            <option value="residency">Certificate of Residency</option>
+                            <option value="indigency">Certificate of Indigency</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Purpose <span class="required">*</span></label>
+                        <textarea name="purpose" rows="3" placeholder="State the purpose of this clearance" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>OR Number</label>
+                            <input type="text" name="orNumber" placeholder="Official Receipt Number">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount Paid</label>
+                            <input type="number" name="amount" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitClearance()">
+                    <i class="fas fa-print"></i> Issue & Print
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="ebarangay-system-functional.js"></script>
+</body>
+</html>
